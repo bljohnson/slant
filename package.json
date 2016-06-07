@@ -1,0 +1,29 @@
+{
+  "name": "soloproject",
+  "version": "1.0.0",
+  "description": "Full stack app that applies sentiment analysis to Twitter searches.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qnelson/slant.git"
+  },
+  "author": "Quinn Nelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qnelson/slant/issues"
+  },
+  "homepage": "https://github.com/qnelson/slant#readme",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-animate": "^1.5.6",
+    "angular-aria": "^1.5.6",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-route": "^1.5.6",
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4"
+  }
+}
