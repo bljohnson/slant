@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Slant</title>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="/styles/stylesheet.css" />
+<!--    <link rel="stylesheet" href="/styles/angular-material.min.css" />
+    <script src="/vendors/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-material.min.js"></script> -->
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/scripts/clientapp.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/mainController.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/sidenavController.js"></script>
+</head>
+
+
+<body ng-app="slantApp" ng-controller="MainController">
+
+<h1>SLANT</h1>
+
+<button ng-click="getTweets()">Get Pancake Tweets</button>
+
+<div ng-include="'/views/main.html'">
+
+</div>
+
+    <main ng-view></main>
+
+
+
+</body>
+
+</html>
