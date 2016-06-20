@@ -1,17 +1,26 @@
 var express = require("express");
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
+
+var twit = require('./routes/twit');
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+app.use('/twit', twit);
 
 // Serve back static files
 app.use(express.static(path.join(__dirname, './public')));
 
-app.get("/jq", function(req,res,next){
+app.get("/jq", function(req, res, next) {
     res.sendFile(path.join(__dirname, "./public/views/indexjq.html"));
 });
 
 // Handle index file separately
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './public/views/index.html'));
+    res.sendFile(path.join(__dirname, './public/views/index.html'));
 })
 
 app.set('port', process.env.PORT || 5000);

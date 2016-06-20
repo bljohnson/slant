@@ -5,31 +5,97 @@
 <head>
     <title>Slant</title>
 
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/styles/stylesheet.css" />
-<!--    <link rel="stylesheet" href="/styles/angular-material.min.css" />
-    <script src="/vendors/angular-animate.min.js"></script>
-    <script type="text/javascript" src="/vendors/angular-material.min.js"></script> -->
+    <link rel="stylesheet" href="/styles/angular-material.min.css" />
     <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-aria.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-material.min.js"></script>
     <script type="text/javascript" src="/scripts/clientapp.js"></script>
     <script type="text/javascript" src="/scripts/controllers/mainController.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/sidenavController.js"></script>
 </head>
-
 
 <body ng-app="slantApp" ng-controller="MainController">
 
-<h1>SLANT</h1>
+        <md-toolbar class="md-toolbar-tools md-medium-tall"  md-scroll-shrink layout="row">
+            <md-button ng-click="toggleNav()" hide-gt-md class="menu" aria-label="Show Search Menu">
+                <i class="material-icons">menu</i>
+            </md-button>
+            <h2>Slant</h2>
+            <div class="scores" layout="row" layout-align="space-around center" flex ng-show="showcount">
+              <a ng-if="senTotal > 0">Total Sentiment: Positive</a>
+              <a ng-if="senTotal < 0">Total Sentiment: Negative</a>
+              <a ng-if="senTotal == 0">Total Sentiment: Neutral</a>
+              <a>Positive: {{posTotal}}</a>
+              <a>Neutral: {{neuTotal}}</a>
+              <a>Negative: {{negTotal}}</a>
+            </div>
+        </md-toolbar>
 
-<button ng-click="getTweets()">Get Pancake Tweets</button>
+        <div layout="row">
+            <md-sidenav ng-cloak layout="column" md-is-locked-open="$mdMedia('gt-md')" layout-padding md-component-id="left" class="md-sidenav-left md-whiteframe-z2">
+                <md-input-container>
+                    <label>Enter search topic</label>
+                    <input type="text" id="text_input" name="text_input" ng-model="search">
+                </md-input-container>
+                <md-progress-linear layout="center" md-mode="indeterminate" ng-show="loading"></md-progress-linear>
+                <md-button ng-click="getTweets()">Get Tweets</md-button>
+                <md-input-container layout-padding>
+                <md-select placeholder="Sort By" ng-model="sortBy">
+                  <md-option>Sentiment</md-option>
+                  <md-option>Favorites</md-option>
+                  <md-option>Date</md-option>
+                  <md-option>Number of Followers</md-option>
+                </md-select>
 
-<div ng-include="'/views/main.html'">
+                </md-input-container>
+            </md-sidenav>
 
-</div>
+            <div ng-cloak class="main">
 
-    <main ng-view></main>
+                <md-content id="content" layout="row" layout-wrap flex="auto" layout-align="center center">
+                    <md-card layout-padding ng-repeat="t in tweets | orderBy: 't.retweet_count'" >
+                        <div layout="row">
+                            <div>
+                                <md-card-header>
+                                    <img ng-src="{{t.user.profile_image_url}}" class="md-card-image">
+                                    <md-card-header-text>
+                                        <div class="screen_name">
+                                            <h2 layout="row" layout-align="end center">{{t.user.screen_name}}</h2>
+                                        </div>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <p class="tweet">{{t.text}}</p>
+                                <div layout="row" layout-align="center center">
+                                    <div class="tweetinfo" flex>
+                                        <p ng-if="t.sentiment > 0">Sentiment: {{t.sentiment}}% {{t.score}}</p>
+                                        <p ng-if="t.sentiment == 0">Sentiment: {{t.score}}</p>
+                                        <p>Retweeted: {{t.retweet_count}} times</p>
+                                        <p>Created at: {{t.created_at}}</p>
+                                    </div>
+                                    <div layout-align="end center" flex="13">
+                                        <div layout="row">
+                                            <div flex>
+                                                <md-button  aria-label="View tweet on Twitter" ng-href="http://twitter.com/{{t.user.screen_name}}/status/{{t.id_str}}" class="md-fab" target="_blank">
+                                                    <i class="material-icons">exit_to_app</i>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </md-card>
+                    </div>
 
+                    </div>
 
+                </md-content>
+            </div>
+        </div>
+
+        <!-- <div ng-include="'/views/toolbar.html'"></div>
+        <div ng-include="'/views/sidenav.html'"></div>
+        <div ng-include="'/views/main.html'"></div> -->
 
 </body>
 
