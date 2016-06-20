@@ -24,6 +24,8 @@
     "angular-material": "^1.1.0-rc.5",
     "angular-route": "^1.5.6",
     "body-parser": "^1.15.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "sentiword": "0.0.1",
+    "twit": "^2.2.4"
   }
 }
